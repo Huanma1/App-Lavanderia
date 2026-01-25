@@ -1,6 +1,6 @@
 # segemin_local
 
-A new Flutter project.
+AA new Flutter project.
 
 ## Getting Started
 
