@@ -29,18 +29,18 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "ic_launcher"
   ios: true
-  image_path: "assets/images/logo_app_8.png"
-  image_path_ios: "assets/images/logo_app_8.png"
+  image_path: "assets/images/log_apple_compliant.png"
+  image_path_ios: "assets/images/log_apple_compliant.png"
   adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "assets/images/logo_app_8.png"
+  adaptive_icon_foreground: "assets/images/log_apple.png"
   min_sdk_android: 21
 
 # --- Configuración de la Pantalla de Carga (Splash) ---
 flutter_native_splash:
   color: "#FFFFFF"
-  image: "assets/images/logo_app_8.png"
+  image: "assets/images/log_apple.png"
   android_12:
-    image: "assets/images/logo_app_8.png"
+    image: "assets/images/log_apple.png"
     icon_background_color: "#FFFFFF"
 
 flutter:
