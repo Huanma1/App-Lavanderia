@@ -5,7 +5,8 @@ if [ ! -d "flutter" ]; then
 	git clone https://github.com/flutter/flutter.git -b stable --depth 1
 fi
 
-export PATH="$PATH:`pwd`/flutter/bin"
+FLUTTER_PATH=$(pwd)/flutter/bin
+export PATH="$PATH:$FLUTTER_PATH"
 
 flutter precache --ios
 flutter pub get
