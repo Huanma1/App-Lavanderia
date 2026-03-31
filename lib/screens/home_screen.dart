@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 import 'create_order_screen.dart';
 import 'order_detail_screen.dart';
+import 'profile_screen.dart';
 import '../services/api_service.dart';
 import '../widgets/background_wrapper.dart';
 
@@ -61,6 +62,15 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.refresh),
               onPressed: _loadOrdenes,
               tooltip: 'Recargar',
+            ),
+            IconButton(
+              icon: const Icon(Icons.account_circle),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                );
+              },
+              tooltip: 'Ver Perfil',
             ),
             IconButton(
               icon: const Icon(Icons.logout),

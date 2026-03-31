@@ -365,6 +365,76 @@ class ApiService {
       }
     } catch (e) {
       return 'Error de conexión: $e';
+    } finally {
+      // client.close(); // _getClient should be closed if it was assigned to a variable
+    }
+  }
+
+  /// Obtiene la información del perfil del usuario autenticado
+  Future<Map<String, dynamic>?> getUserProfile() async {
+    final url = Uri.parse('$baseUrl/user');
+    final client = _getClient();
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('auth_token');
+
+      final response = await client.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        debugPrint(
+          'Error getUserProfile: ${response.statusCode} - ${response.body}',
+        );
+        return null;
+      }
+    } catch (e) {
+      debugPrint('Error en getUserProfile: $e');
+      return null;
+    } finally {
+      client.close();
+    }
+  }
+
+  /// Solicita la eliminación de la cuenta del usuario (Soft Delete)
+  Future<bool> deleteAccount() async {
+    final url = Uri.parse('$baseUrl/user');
+    final client = _getClient();
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('auth_token');
+
+      final response = await client.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        // Limpiar token localmente tras éxito
+        await prefs.remove('auth_token');
+        return true;
+      } else {
+        debugPrint('Error deleteAccount: ${response.statusCode} - ${response.body}');
+        return false;
+      }
+    } catch (e) {
+      debugPrint('Error en deleteAccount: $e');
+      return false;
+    } finally {
+      client.close();
     }
   }
 }
